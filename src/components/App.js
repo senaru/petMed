@@ -9,7 +9,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      myName: "Senaru",
       myAppointments: []
     };
   }
@@ -28,13 +27,18 @@ class App extends Component {
   }
 
   render() {
+
+    const listItems = this.state.myAppointments.map(i => (
+      <div>{i.petName}</div>
+    ))
+
     return (
       <main className="page bg-white" id="petratings" >
         <div className="container">
           <div className="row">
             <div className="col-md-12 bg-white">
               <div className="container">
-                {this.state.myName}
+                {listItems}
                 <AddAppointments />
                 <ListAppointments />
                 <SearchAppointments />
