@@ -9,7 +9,7 @@ class ListAppointments extends Component {
                 {this.props.appointments.map(i => (
                     <div className="pet-item col media py-3" id={i.aptId}>
                         <div className="mr-3">
-                            <button className="pet-delete btn btn-sm btn-danger">
+                            <button className="pet-delete btn btn-sm btn-danger" onClick={() => this.props.deleteAppointment(i)} >
                                 <FaTimes />
                             </button>
                         </div>
@@ -28,7 +28,8 @@ class ListAppointments extends Component {
                             </div>
                             <div className="apt-notes">Notes: {i.aptNotes}</div>
                         </div>
-                    </div>))}
+                    </div>))
+                }
             </div>);
     }
 }
