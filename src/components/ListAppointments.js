@@ -2,13 +2,27 @@ import React, { Component } from 'react';
 
 class ListAppointments extends Component {
     render() {
-        const listItems = this.props.appointments.map(i => (
-            <div>{i.petName}</div>
-        ));
-
         return (
-            <div>
-                List Appointments
+            <div className="appointment-list item-list mb-3">
+                {this.props.appointments.map(i => (
+                    <div className="pet-item col media py-3">
+                        <div className="mr-3">
+                            <button className="pet-delete btn btn-sm btn-danger">X</button>
+                        </div>
+
+                        <div className="pet-info media-body">
+                            <div className="pet-head d-flex">
+                                <span className="pet-name">Name: {i.petName}</span>
+                                <span className="apt-date ml-auto">{i.aptDate}</span>
+                            </div>
+
+                            <div className="owner-name">
+                                <span className="label-item">Owner: {i.owner}</span>
+                                <span>ownerName</span>
+                            </div>
+                            <div className="apt-notes">Notes: {i.aptNotes}</div>
+                        </div>
+                    </div>))}
             </div>);
     }
 }
