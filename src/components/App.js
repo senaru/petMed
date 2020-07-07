@@ -14,6 +14,7 @@ class App extends Component {
       formDisplay: false,
       orderBy: 'petName',
       orderDir: 'asc',
+      query: '',
       lastIndex: 0
     };
     this.deleteAppointment = this.deleteAppointment.bind(this);
@@ -21,6 +22,7 @@ class App extends Component {
     this.addAppointment = this.addAppointment.bind(this);
     this.changeDir = this.changeDir.bind(this);
     this.changeOrder = this.changeOrder.bind(this);
+    this.search = this.search.bind(this);
   }
 
   addAppointment(apt) {
@@ -77,6 +79,12 @@ class App extends Component {
     });
   }
 
+  search(query) {
+    this.setState({
+      query: query
+    })
+  }
+
   render() {
 
     let order;
@@ -87,7 +95,7 @@ class App extends Component {
       order = -1;
     }
 
-    filteredAppointments.sort((a, b) => {
+    filteredAppointments = filteredAppointments.sort((a, b) => {
       if (a[this.state.orderBy].toLowerCase() <
         b[this.state.orderBy].toLowerCase()
       ) {
@@ -95,7 +103,19 @@ class App extends Component {
       } else {
         return 1 * order;
       }
-    })
+    }).filter(eachItem => {
+      return (
+        eachItem['petName']
+          .toLowerCase()
+          .includes(this.state.query.toLowerCase()) ||
+        eachItem['ownerName']
+          .toLowerCase()
+          .includes(this.state.query.toLowerCase()) ||
+        eachItem['aptNotes']
+          .toLowerCase()
+          .includes(this.state.query.toLowerCase())
+      );
+    });
 
     return (
       <main className="page bg-white" id="petratings" >
@@ -112,6 +132,7 @@ class App extends Component {
                   orderDir={this.state.orderDir}
                   changeOrder={this.changeOrder}
                   changeDir={this.changeDir}
+                  search={this.search}
                 />
                 <ListAppointments
                   appointments={filteredAppointments}
